@@ -1,0 +1,22 @@
+{
+  "name": "finchain",
+  "version": "1.0.0",
+  "main": "web.js",
+  "repository": "https://github.com/donggyushin/Finchain",
+  "author": "rontend",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel --presets es2015 -d dist/ src",
+    "start": "node ./dist/web.js",
+    "dev": "nodemon --exec babel-node ./src/web.js"
+  }
+}
