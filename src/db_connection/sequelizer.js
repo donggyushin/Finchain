@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 
-const sequelize = new Sequelize('finchain', 'root', '1234', {
+export const sequelize = new Sequelize('finchain', 'root', '1234', {
     host: 'localhost',
     dialect: 'mysql',
     pool: {
@@ -17,3 +17,4 @@ sequelize.authenticate().then(() => {
     console.log("Unable to connect to the database: ", err)
 })
 
+sequelize.sync({ force: false })
