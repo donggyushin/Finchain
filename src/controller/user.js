@@ -1,16 +1,20 @@
 import User from '../model/user'
+import { generateToken } from '../utils/jsonwebtoken';
 
-export const login = (req, res) => {
+export const login = async (req, res) => {
     const { username, password } = req.body
 
     // Find user with username and password
-    User.findOne({ where: { username, password } }).then(user => {
+    User.findOne({ where: { username, password } }).then(async user => {
         // If there is, send ok and token
         if (user != null) {
+            const userIdentifier = user.identifier;
+            console.log(userIdentifier)
+            const jwt = await generateToken(userIdentifier)
             res.json({
                 ok: true,
                 message: null,
-                jwt: "jwt"
+                jwt
             })
         } else {
             // Else, error message
