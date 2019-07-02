@@ -2,6 +2,7 @@ import User from '../model/user'
 import { generateToken } from '../utils/jsonwebtoken';
 
 export const login = async (req, res) => {
+    console.log(req.body)
     const { username, password } = req.body
 
     // Find user with username and password
@@ -28,6 +29,7 @@ export const login = async (req, res) => {
 }
 
 export const newAccount = (req, res) => {
+    console.log(req.body)
     const { username, password } = req.body
     // Check there is already username
     User.findOne({ where: { username } }).then(user => {

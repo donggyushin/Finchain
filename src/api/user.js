@@ -10,6 +10,6 @@ router.post('/new-account', upload.array(), newAccount)
 
 
 // Login
-router.get('/login', upload.array(), login)
+router.post('/login', upload.array(), login)
 
 export default router;
