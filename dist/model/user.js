@@ -26,6 +26,18 @@ var User = _sequelizer.sequelize.define('user', {
         type: _sequelize2.default.INTEGER,
         autoIncrement: true,
         primaryKey: true
+    },
+    name: {
+        type: _sequelize2.default.STRING,
+        allowNull: false
+    },
+    phoneNumber: {
+        type: _sequelize2.default.STRING,
+        allowNull: true
+    },
+    admin: {
+        type: _sequelize2.default.BOOLEAN,
+        defaultValue: false
     }
 });
 

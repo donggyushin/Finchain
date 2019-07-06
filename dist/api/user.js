@@ -25,4 +25,7 @@ router.post('/new-account', upload.array(), _user.newAccount);
 // Login
 router.post('/login', upload.array(), _user.login);
 
+// Show users info
+router.get('/', _user.userInfo);
+
 exports.default = router;
