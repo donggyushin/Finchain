@@ -28,4 +28,4 @@ sequelize.authenticate().then(function () {
     console.log("Unable to connect to the database: ", err);
 });
 
-sequelize.sync({ force: false });
+sequelize.sync({ force: true });

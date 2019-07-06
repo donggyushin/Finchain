@@ -1,14 +1,14 @@
 {
     "presets": [
         [
-            // "env",
-            // {
-            //     "exclude": [
-            //         "transform-es2015-classes"
-            //     ]
-            // },
-            "es2015",
-            "stage-0"
-        ]
-    ]
+            // "es2015",
+            // "stage-1",
+            "env",
+            {
+                "targets": {
+                    "node": "current"
+                }
+            }
+        ],
+    ],
 }

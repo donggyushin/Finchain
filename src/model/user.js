@@ -1,8 +1,8 @@
 import { sequelize } from '../db_connection/sequelizer'
 import Sequelize from 'sequelize'
-const Model = Sequelize.Model;
-class User extends Model { }
-User.init({
+
+
+const User = sequelize.define('user', {
     username: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -16,11 +16,20 @@ User.init({
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    phoneNumber: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
-}, {
-        sequelize,
-        modelName: 'user'
-    })
+})
 
 
 export default User

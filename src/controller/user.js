@@ -1,6 +1,24 @@
 import User from '../model/user'
 import { generateToken } from '../utils/jsonwebtoken';
 
+export const userInfo = async (req, res) => {
+    try {
+        const users = await User.findAll()
+        res.json({
+            ok: true,
+            message: "",
+            users
+        })
+    } catch (error) {
+        console.log(error)
+        res.json({
+            ok: false,
+            message: "유저 정보를 받아오는데에 문제가 생겼습니다. ",
+            users: null
+        })
+    }
+}
+
 export const login = async (req, res) => {
     console.log(req.body)
     const { username, password } = req.body
@@ -30,7 +48,7 @@ export const login = async (req, res) => {
 
 export const newAccount = (req, res) => {
     console.log(req.body)
-    const { username, password } = req.body
+    const { username, password, name, phoneNumber } = req.body
     // Check there is already username
     User.findOne({ where: { username } }).then(user => {
         // user will be the first entry of the User table with username
@@ -42,7 +60,7 @@ export const newAccount = (req, res) => {
             })
         } else {
             // Else, make new user 
-            User.findOrCreate({ where: { username, password } }).then(
+            User.findOrCreate({ where: { username, password, name, phoneNumber } }).then(
                 ([existingUser, created]) => {
                     if (created) {
                         res.json({
