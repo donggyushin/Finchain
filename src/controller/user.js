@@ -3,7 +3,7 @@ import { generateToken } from '../utils/jsonwebtoken';
 
 export const userInfo = async (req, res) => {
     try {
-        const users = await User.findAll()
+        const users = await User.findAll({ attributes: ['identifier', 'username', 'name', 'phoneNumber', 'createdAt', 'updatedAt'] })
         res.json({
             ok: true,
             message: "",
