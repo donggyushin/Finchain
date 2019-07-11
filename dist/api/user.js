@@ -28,4 +28,10 @@ router.post('/login', upload.array(), _user.login);
 // Show users info
 router.get('/', _user.userInfo);
 
+// Show user is admin or not
+router.get('/admin', _user.checkAdmin);
+
+// Change user password
+router.post('/change-password', upload.array(), _user.changePassword);
+
 exports.default = router;

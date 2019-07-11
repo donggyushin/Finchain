@@ -1,9 +1,62 @@
 import User from '../model/user'
-import { generateToken } from '../utils/jsonwebtoken';
+import { generateToken, decodeToken } from '../utils/jsonwebtoken';
+
+
+export const checkAdmin = async (req, res) => {
+    const token = req.header('token')
+    const userPk = await decodeToken(token);
+
+    try {
+        const user = await User.findByPk(userPk);
+        if (user == null) {
+            res.json({
+                ok: false,
+                admin: false
+            })
+        } else {
+            res.json({
+                ok: true,
+                admin: user.admin
+            })
+        }
+    } catch (err) {
+        res.json({
+            ok: false,
+            admin: false
+        })
+    }
+
+}
+
+export const changePassword = async (req, res) => {
+    const { password } = req.body;
+
+    try {
+
+        const master = await User.findOne({
+            where: {
+                username: 'master'
+            }
+        })
+        master.password = password;
+        await master.save()
+        res.json({
+            ok: true,
+            error: null
+        })
+    } catch (err) {
+        res.json({
+            ok: false,
+            error: "비밀번호를 바꾸는데 실패하였습니다. "
+        })
+    }
+
+
+}
 
 export const userInfo = async (req, res) => {
     try {
-        const users = await User.findAll({ attributes: ['identifier', 'username', 'name', 'phoneNumber', 'createdAt', 'updatedAt'] })
+        const users = await User.findAll({ attributes: ['identifier', 'username', 'name', 'phoneNumber', 'createdAt', 'updatedAt', 'password'] })
         res.json({
             ok: true,
             message: "",
@@ -60,13 +113,35 @@ export const newAccount = (req, res) => {
             })
         } else {
             // Else, make new user 
+
+
+
+
+
             User.findOrCreate({ where: { username, password, name, phoneNumber } }).then(
-                ([existingUser, created]) => {
+                async ([user, created]) => {
                     if (created) {
-                        res.json({
-                            ok: true,
-                            message: null
-                        })
+                        if (user.username = "master") {
+                            user.admin = true;
+                            try {
+                                await user.save()
+                                res.json({
+                                    ok: true,
+                                    message: "master 계정 생성완료"
+                                })
+                            } catch (err) {
+                                res.json({
+                                    ok: true,
+                                    message: "계정은 생성 됬지만, master 계정은 생성되지 않음. 이유 불명"
+                                })
+                            }
+                        } else {
+                            res.json({
+                                ok: true,
+                                message: null
+                            })
+                        }
+
                     } else {
                         res.json({
                             ok: false,
