@@ -8,8 +8,16 @@ app.use(express.urlencoded({ extended: true }))
 
 // Get the frontend static file
 console.log(__dirname)
-app.use('/', express.static(path.join(__dirname, 'frontend/build')))
+let env = process.env.NODE_ENV;
 
+
+
+if (env == 'dev') {
+    app.use('/', express.static(path.join(__dirname, 'frontend/build')))
+
+} else {
+    app.use('/', express.static(path.join(__dirname, 'build')))
+}
 
 // API router
 app.use('/api', API)

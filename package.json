@@ -29,6 +29,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel --presets es2015 -d dist/ src",
     "start": "node ./dist/web.js",
-    "dev": "nodemon --exec babel-node ./src/web.js"
+    "dev": "NODE_ENV=dev nodemon --exec babel-node ./src/web.js"
   }
 }

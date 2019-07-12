@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _express = require('express');
@@ -25,7 +25,13 @@ app.use(_express2.default.urlencoded({ extended: true }));
 
 // Get the frontend static file
 console.log(__dirname);
-app.use('/', _express2.default.static(_path2.default.join(__dirname, 'frontend/build')));
+var env = process.env.NODE_ENV;
+
+if (env == 'dev') {
+    app.use('/', _express2.default.static(_path2.default.join(__dirname, 'frontend/build')));
+} else {
+    app.use('/', _express2.default.static(_path2.default.join(__dirname, 'build')));
+}
 
 // API router
 app.use('/api', _api2.default);

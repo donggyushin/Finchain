@@ -27,6 +27,10 @@ var User = _sequelizer.sequelize.define('user', {
         autoIncrement: true,
         primaryKey: true
     },
+    email: {
+        type: _sequelize2.default.STRING,
+        allowNull: false
+    },
     name: {
         type: _sequelize2.default.STRING,
         allowNull: false

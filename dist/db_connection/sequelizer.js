@@ -1,31 +1,47 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.sequelize = undefined;
 
-var _sequelize = require('sequelize');
+var _sequelize = require("sequelize");
 
 var _sequelize2 = _interopRequireDefault(_sequelize);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var sequelize = exports.sequelize = new _sequelize2.default('finchain', 'root', '1234', {
-    host: 'localhost',
-    dialect: 'mysql',
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
+var env = process.env.NODE_ENV;
+
+var DB_NAME = "";
+var USER = "";
+var PASSWORD = "";
+
+if (env == "dev") {
+  DB_NAME = "finchain";
+  USER = "root";
+  PASSWORD = "1234";
+} else {
+  DB_NAME = "donggyu9410";
+  USER = "donggyu9410";
+  PASSWORD = "q1w2e3r4";
+}
+
+var sequelize = exports.sequelize = new _sequelize2.default(DB_NAME, USER, PASSWORD, {
+  host: "localhost",
+  dialect: "mysql",
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
 });
 
 sequelize.authenticate().then(function () {
-    console.log("Connection has been established successfully");
+  console.log("Connection has been established successfully");
 }).catch(function (err) {
-    console.log("Unable to connect to the database: ", err);
+  console.log("Unable to connect to the database: ", err);
 });
 
-sequelize.sync({ force: false });
+sequelize.sync({ force: true });
