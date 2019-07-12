@@ -16,19 +16,21 @@ var env = process.env.NODE_ENV;
 var DB_NAME = "";
 var USER = "";
 var PASSWORD = "";
-
+var HOST = "";
 if (env == "dev") {
   DB_NAME = "finchain";
   USER = "root";
   PASSWORD = "1234";
+  HOST = "localhost";
 } else {
   DB_NAME = "donggyu9410";
   USER = "donggyu9410";
   PASSWORD = "q1w2e3r4";
+  HOST = "finchain.cafe24app.com";
 }
 
 var sequelize = exports.sequelize = new _sequelize2.default(DB_NAME, USER, PASSWORD, {
-  host: "localhost",
+  host: HOST,
   dialect: "mysql",
   pool: {
     max: 5,
